@@ -1,0 +1,42 @@
+<div class="page">
+  <header class="header">
+    <div class="header-inner">
+      <h1 class="logo">🍽 Restaurant Finder</h1>
+      <p class="tagline">Search restaurants in any city using Yelp</p>
+      <app-search-bar (search)="onSearch($event)" />
+    </div>
+  </header>
+
+  <main class="main">
+    <div *ngIf="loading" class="state-container">
+      <div class="spinner"></div>
+      <p>Finding restaurants in <strong>{{ searchedCity }}</strong>…</p>
+    </div>
+
+    <div *ngIf="error && !loading" class="state-container error-box">
+      <span class="error-icon">⚠️</span>
+      <p>{{ error }}</p>
+    </div>
+
+    <div *ngIf="!loading && !error && restaurants.length > 0">
+      <p class="results-summary">
+        Showing <strong>{{ restaurants.length }}</strong> of <strong>{{ total }}</strong> restaurants in
+        <strong>{{ searchedCity }}</strong>
+      </p>
+      <div class="grid">
+        <app-restaurant-card
+          *ngFor="let r of restaurants"
+          [restaurant]="r"
+        />
+      </div>
+    </div>
+
+    <div *ngIf="!loading && !error && searchedCity && restaurants.length === 0" class="state-container">
+      <p>No restaurants found in <strong>{{ searchedCity }}</strong>. Try a different city.</p>
+    </div>
+
+    <div *ngIf="!loading && !error && !searchedCity" class="empty-state">
+      <p>Enter a city above to find restaurants.</p>
+    </div>
+  </main>
+</div>

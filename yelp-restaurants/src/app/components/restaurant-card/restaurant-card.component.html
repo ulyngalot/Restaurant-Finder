@@ -1,0 +1,41 @@
+<div class="card">
+  <div class="card-image-wrapper">
+    <img
+      *ngIf="restaurant.imageUrl; else noImage"
+      [src]="restaurant.imageUrl"
+      [alt]="restaurant.name"
+      class="card-image"
+    />
+    <ng-template #noImage>
+      <div class="card-image-placeholder">No Image</div>
+    </ng-template>
+    <span class="status-badge" [class.closed]="restaurant.isClosed">
+      {{ restaurant.isClosed ? 'Closed' : 'Open' }}
+    </span>
+  </div>
+
+  <div class="card-body">
+    <h3 class="card-title">{{ restaurant.name }}</h3>
+
+    <div class="card-rating">
+      <span class="star" *ngFor="let s of stars" [class.filled]="s <= restaurant.rating">★</span>
+      <span class="rating-value">{{ restaurant.rating }}</span>
+      <span class="review-count">({{ restaurant.reviewCount | number }} reviews)</span>
+    </div>
+
+    <p class="card-category">{{ restaurant.categories }}</p>
+
+    <div class="card-detail">
+      <span class="detail-label">Address</span>
+      <span class="detail-value">{{ restaurant.address }}</span>
+    </div>
+
+    <div class="card-detail">
+      <span class="detail-label">Coordinates</span>
+      <span class="detail-value">
+        {{ restaurant.coordinates.latitude | number:'1.4-4' }},
+        {{ restaurant.coordinates.longitude | number:'1.4-4' }}
+      </span>
+    </div>
+  </div>
+</div>
