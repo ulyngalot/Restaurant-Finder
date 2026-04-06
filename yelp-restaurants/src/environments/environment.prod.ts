@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  proxyUrl: 'https://restaurant-finder-qv6m.onrender.com'
+  proxyUrl: 'https://restaurant-finder-qv6m.onrender.com/api/restaurants'
 };
