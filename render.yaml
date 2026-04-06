@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: restaurant-finder-proxy
+    runtime: node
+    rootDir: proxy
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: YELP_API_KEY
+        sync: false
+      - key: PORT
+        value: 10000

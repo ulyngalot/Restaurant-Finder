@@ -7,7 +7,20 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const YELP_API_KEY = process.env.YELP_API_KEY;
 
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:4200',
+  'https://ulyngalot.github.io',
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 app.use(express.json());
 
 app.get('/api/restaurants', async (req, res) => {
